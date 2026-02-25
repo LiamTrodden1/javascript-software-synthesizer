@@ -88,7 +88,11 @@ const interfaces = <BaseEffectUI<PhaserUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Phaser',
+    'Creates a swirling spacey sound by shifting the phase of the signal'
+);
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 

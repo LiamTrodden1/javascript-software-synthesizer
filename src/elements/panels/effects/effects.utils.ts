@@ -30,12 +30,16 @@ import { createPanelSubtitle } from '../panels.js';
 
 export const createEffectElements = (
   id: string,
-  label = capitalizeString(id)
+  label = capitalizeString(id),
+  description: string
 ) => {
   const wrapper = document.createElement('div');
   wrapper.classList.add('effect-wrapper');
 
   const subtitle = createPanelSubtitle(label);
+
+  // add description to subtitle
+  subtitle.title = description;
 
   const toggleWrapper = document.createElement('div');
   toggleWrapper.classList.add('effect-toggle');

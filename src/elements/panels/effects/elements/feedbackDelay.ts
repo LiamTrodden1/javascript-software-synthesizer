@@ -90,7 +90,8 @@ const interfaces = <BaseEffectUI<FeedbackDelayUI>>{
 function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
-    'Feedback Delay'
+    'Feedback Delay',
+    'Echoes the sound that has been played'
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

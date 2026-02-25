@@ -76,7 +76,11 @@ const interfaces = <BaseEffectUI<VibratoUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Vibrato',
+    'Wobble pitch to simulate vocal singing'
+  );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 

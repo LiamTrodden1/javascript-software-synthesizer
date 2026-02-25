@@ -1,18 +1,18 @@
 /*
- *  JSS-01 |JavaScript Software Synthesizer
- *  Copyright (c) Michael Kolesidis <michael.kolesidis@gmail.com>
- *  GNU Affero General Public License v3.0
+ * JSS-01 |JavaScript Software Synthesizer
+ * Copyright (c) Michael Kolesidis <michael.kolesidis@gmail.com>
+ * GNU Affero General Public License v3.0
  *
- *  ATTENTION! FREE SOFTWARE
- *  This website is free software (free as in freedom).
- *  If you use any part of this code, you must make your entire project's source code
- *  publicly available under the same license. This applies whether you modify the code
- *  or use it as it is in your own project. This ensures that all modifications and
- *  derivative works remain free software, so that everyone can benefit.
- *  If you are not willing to comply with these terms, you must refrain from using any part of this code.
+ * ATTENTION! FREE SOFTWARE
+ * This website is free software (free as in freedom).
+ * If you use any part of this code, you must make your entire project's source code
+ * publicly available under the same license. This applies whether you modify the code
+ * or use it as it is in your own project. This ensures that all modifications and
+ * derivative works remain free software, so that everyone can benefit.
+ * If you are not willing to comply with these terms, you must refrain from using any part of this code.
  *
- *  For full license terms and conditions, you can read the AGPL-3.0 here:
- *  https://www.gnu.org/licenses/agpl-3.0.html
+ * For full license terms and conditions, you can read the AGPL-3.0 here:
+ * https://www.gnu.org/licenses/agpl-3.0.html
  */
 
 import CollapsibleComponent, {
@@ -36,8 +36,8 @@ export default function createSynthesizer() {
 
   // create collapsible sections wrapper
   const sections = {
-    envelope: CollapsibleComponent(ids.envelope),
-    oscillator: CollapsibleComponent(ids.oscillator),
+    envelope: CollapsibleComponent(ids.envelope, createPanelSubtitle('Amplitude Envelope')),
+    oscillator: CollapsibleComponent(ids.oscillator, createPanelSubtitle('Oscillator')),
   } as {
     readonly [K in keyof Pick<
       SynthesizerIds,
@@ -45,9 +45,9 @@ export default function createSynthesizer() {
     >]: TCollapsibleComponent;
   };
 
-  // set titles
-  sections.envelope.appendtToTitle(createPanelSubtitle('Amplitude Envelope'));
-  sections.oscillator.appendtToTitle(createPanelSubtitle('Oscillator'));
+  // Set descriptions
+  sections.envelope.description = "Controls the volume from the moment a key is pressed to after its released";
+  sections.oscillator.description = "Generates the sound and defines the basic tone and texture of the sound";
 
   // create dials / nexus interfaces
   const dials = {

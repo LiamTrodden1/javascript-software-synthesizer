@@ -88,7 +88,11 @@ const interfaces = <BaseEffectUI<ChorusUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+  'Chorus',
+  'Vary pitch and timing to produce a heavenly sound'
+);
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 

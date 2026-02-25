@@ -90,7 +90,8 @@ const interfaces = <BaseEffectUI<AutoFilterUI>>{
 function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
-    'Auto Filter'
+    'Auto Filter',
+    'Sweeping filter to cut of high frequencies giving a "wah" sounding effect'
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

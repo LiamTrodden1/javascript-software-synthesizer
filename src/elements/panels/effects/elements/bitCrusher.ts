@@ -69,7 +69,8 @@ const interfaces = <BaseEffectUI<BitcrusherUI>>{
 function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
-    'Bit Crusher'
+    'Bit Crusher',
+    'Reduce the audio resolution to add a more gritty distorted lo-fi noise'
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

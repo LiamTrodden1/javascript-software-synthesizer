@@ -67,7 +67,11 @@ const interfaces = <BaseEffectUI<DistortionUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Distortion',
+    'Increase audio saturation for a more aggressive tone'
+  );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 

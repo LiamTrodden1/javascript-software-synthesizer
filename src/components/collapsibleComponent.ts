@@ -41,6 +41,11 @@ class Component {
     this._body = body;
   }
 
+  // Description of what the section does
+  set description(value: string) {
+      this._title.title = value; 
+  }
+
   set title(value: string) {
     this._title.innerHTML = value;
   }

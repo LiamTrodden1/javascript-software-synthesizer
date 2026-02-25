@@ -80,7 +80,8 @@ const interfaces = <BaseEffectUI<PingPongDelayUI>>{
 function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
-    'Ping Pong Delay'
+    'Ping Pong Delay',
+    'Echo effect that bounces between left and right speaker'
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

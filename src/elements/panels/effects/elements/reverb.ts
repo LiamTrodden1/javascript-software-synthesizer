@@ -70,7 +70,11 @@ const interfaces = <BaseEffectUI<ReverbUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Reverb',
+    'Add space and depth to the sound giving a feeling of playing in a large room'
+  );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
   interfaces.decay = NumberDialComponent(

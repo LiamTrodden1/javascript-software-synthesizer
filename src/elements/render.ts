@@ -46,11 +46,12 @@ template.innerHTML = `
 ${Header(false)}
 
 <!-- Main Content -->
-<main>
+<!-- shifted extras(sequence) and keyboard to the top so the graphs always visble as you play -->
+<main> 
 	<section id="${sectionIds.displays}"></section>
+  <section id="${sectionIds.extras}"></section>
+  <section id="${sectionIds.keyboard}"></section>
 	<section id="${sectionIds.panels}"></section>
-	<section id="${sectionIds.extras}"></section>
-	<section id="${sectionIds.keyboard}"></section>
 </main>
 
 <!-- Footer -->

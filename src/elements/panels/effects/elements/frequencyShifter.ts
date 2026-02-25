@@ -76,7 +76,8 @@ const interfaces = <BaseEffectUI<FrequencyShifterUI>>{
 function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
-    'Freq. Shifter'
+    'Freq. Shifter',
+    'Adjust frequencies to create a metallic inharmonic sound'
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

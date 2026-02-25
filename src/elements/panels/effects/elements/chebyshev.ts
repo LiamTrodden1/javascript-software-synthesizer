@@ -67,7 +67,11 @@ const interfaces = <BaseEffectUI<ChebyshevUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Chebyshev',
+    'Add harmonics for distortion'
+  );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 

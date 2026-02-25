@@ -37,6 +37,8 @@ export default function createModulator() {
     ids.modulationEnvelope,
     createPanelSubtitle('Modulation Envelope')
   );
+  // Modulation Envelope Description
+  envelopeSection.description = "Controls how an effect behaves from pressing the key to letting go of the key";
   fragment.append(envelopeSection.fragment);
 
   const envelope = EnvelopeComponent(

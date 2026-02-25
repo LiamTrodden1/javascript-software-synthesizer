@@ -117,14 +117,17 @@ export default function createPanels(section: HTMLElement) {
   Nexus.colors.accent = Color.cyan;
   components.synthesizer.appendtToTitle(titles.synthesizer);
   components.synthesizer.appendToBody(createSynthesizer());
+  components.synthesizer.description = "Main Sound Settings: Volume Adjustments, Amplitude Envelope, Oscillator Type and Partials"
 
   Nexus.colors.accent = Color.green;
   components.modulation.appendtToTitle(titles.modulation);
   components.modulation.appendToBody(createModulator());
+  components.modulation.description = "Adjust the sound wave: Modulation Type and Partials, Modulation Envelope"
 
   Nexus.colors.accent = Color.yellow;
   components.effects.appendtToTitle(titles.effects);
   components.effects.appendToBody(createEffects());
+  components.effects.description = "Apply Audio Effects"
 
   panels.synthesizer.append(components.synthesizer.fragment);
   panels.modulation.append(components.modulation.fragment);

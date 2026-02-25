@@ -76,7 +76,11 @@ const interfaces = <BaseEffectUI<TremoloUI>>{
 };
 
 function render() {
-  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(id);
+  const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
+    id,
+    'Tremolo',
+    'A rhthmic pulsing effect by rapidly modulating volume'
+  );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);
 
