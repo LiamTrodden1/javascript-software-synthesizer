@@ -81,21 +81,22 @@ export default async function createSequencerHandlers() {
     } else if (lowerValue === 'default') {
       notes = presets.default;
     } else {
-          // RegEx
-          // Wrap notes in "" """ and convert spaces into "","" for JSON
-          const jsonFriendly = rawValue
-            .replace(/([A-Ga-g][#b]?\d)/g, '"$1"') 
-            .replace(/\s+/g, ',');
+      // Remove quotes and commas 
+      const sanitisedValue = rawValue.replace(/['",]/g, ''); 
 
-          // try to parse input else error 
-          try {
-            notes = JSON.parse(`[${jsonFriendly}]`);
-          }
-          catch (e) {
-            console.error("Invalid sequence");
-            return; 
-          }
-        }
+      const jsonFriendly = sanitisedValue
+        .replace(/([A-Ga-g][#b]?\d)/g, '"$1"') 
+        .replace(/\s+/g, ',');
+
+      // try to parse input else error 
+      try {
+        notes = JSON.parse(`[${jsonFriendly}]`);
+      }
+      catch (e) {
+        console.error("Invalid sequence");
+        return; 
+      }
+    }
 
     if (notes && notes.length > 0) {
       sequence.events = notes;
