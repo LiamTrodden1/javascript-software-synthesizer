@@ -75,6 +75,10 @@ export default function CollapsibleComponent(
 
   const label = document.createElement('label');
   label.setAttribute('for', identifier);
+  label.classList.add('collapse-header');
+
+  const arrow = document.createElement('span');
+  arrow.className = 'collapse-arrow';
 
   const toggle = document.createElement('input');
   toggle.id = identifier;
@@ -90,6 +94,7 @@ export default function CollapsibleComponent(
     }
   );
 
+  label.append(arrow);
   if (title) {
     label.append(title);
   }

@@ -6,10 +6,6 @@
   transition: grid-template-rows 300ms ease-in-out;
 }
 
-.collapsible-toggle {
-  display: none;
-}
-
 .collapsible-toggle:checked + .collapsible-wrapper {
   grid-template-rows: 0fr;
 }
@@ -22,4 +18,26 @@
 
 .collapsible-toggle:checked + .collapsible-wrapper .collapsible-content {
   opacity: 0.625;
+}
+
+.collapse-header {
+  display: flex;
+  align-items: center;      
+  justify-content: center; 
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  padding: 5px 0;          
+
+  .collapse-arrow {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    font-size: 1.1rem;
+    
+    &::before {
+      content: '⌵'; 
+      display: inline-block;
+    }
+  }
 }

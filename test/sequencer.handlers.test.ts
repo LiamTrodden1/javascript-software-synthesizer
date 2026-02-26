@@ -85,7 +85,7 @@ describe('Sequencer RegEx & Logic Diversity', () => {
   });
 
   // Test uppercase inputs
-  it('RegEx: Handles lowercase input', () => {
+  it('RegEx: Handles uppercase input', () => {
     interfaces.sequence.value = 'A1 B2 C8';    
     triggerSet();
     expect(mockSequence.events).toEqual(['A1', 'B2', 'C8']);
