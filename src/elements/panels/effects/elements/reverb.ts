@@ -73,7 +73,8 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Reverb',
-    'Add space and depth to the sound giving a feeling of playing in a large room'
+    'Add space and depth to the sound giving a feeling of playing in a large room',
+    `Decay: Duration of the reverb before it fades (Higher value means longer duration)`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

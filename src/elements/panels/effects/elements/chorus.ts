@@ -91,7 +91,11 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
   'Chorus',
-  'Vary pitch and timing to produce a heavenly sound'
+  'Vary pitch and timing to produce a heavenly sound',
+  `Frequency: Speed of the waver in pitch
+   Delay: The offset time between the original sound and its copies (Higher value means a wider more detatched sound)
+   Depth: How extreme the pitch shifting is during the effects wavering`
+
 );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

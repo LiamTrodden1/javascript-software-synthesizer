@@ -108,6 +108,40 @@ const createMultislider = (
   return new Nexus.Multislider(element, options);
 };
 
+class WaveformUI {
+  constructor(
+    public radios: any,
+    public slider: any,
+    public multislider: any,
+    private _element: HTMLElement
+  ) {}
+
+  private _injectInfo(containerSelector: string, value: string) {
+    const id = Math.random().toString(36).substring(2, 9);
+    const infoHtml = `
+      <div class="info-button-container">
+        <input type="checkbox" id="info-${id}" class="info-toggle-check">
+        <label for="info-${id}" class="info-icon">ⓘ</label>
+        <div class="info-popout">${value}</div>
+      </div>
+    `;
+    const label = this._element.querySelector(`${containerSelector} p`);
+    label?.insertAdjacentHTML('beforeend', infoHtml);
+  }
+
+  set typeInfo(value: string) {
+    this._injectInfo('div:first-child', value);
+  }
+
+  set countInfo(value: string) {
+    this._injectInfo('.partial-count-wrapper', value);
+  }
+
+  set partialsInfo(value: string) {
+    this._injectInfo('.partials-wrapper', value);
+  }
+}
+
 export default function WaveformComponent(
   parent: HTMLElement | DocumentFragment,
   id: string,
@@ -151,11 +185,12 @@ export default function WaveformComponent(
   parent.append(component);
 
   // nexus interfaces
-  return {
+  return new WaveformUI(
     radios,
     slider,
     multislider,
-  };
+    component
+  );
 
   /*
 	return `

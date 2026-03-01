@@ -70,7 +70,8 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Chebyshev',
-    'Add harmonics for distortion'
+    'Add harmonics for distortion',
+    `Order: Number of harmonic partials added to sound (Higher values means a more complex distorted sound)`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

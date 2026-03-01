@@ -79,7 +79,9 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Tremolo',
-    'A rhthmic pulsing effect by rapidly modulating volume'
+    'A rhthmic pulsing effect by rapidly modulating volume',
+    `Frequency: Speed of the volume pulses
+     Depth: Intensity of the volume drop during the pulse`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

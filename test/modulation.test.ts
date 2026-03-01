@@ -33,6 +33,6 @@ describe('Modulation Description', () => {
     // createsCollapsibleComponent for modulation envelope
     const envelopeSection = mockInstances[0].value;
 
-    expect(envelopeSection.description).toBe("Controls how an effect behaves from pressing the key to letting go of the key");
+    expect(envelopeSection.description).toBe("Controls how modulation evolves over time");
   });
 });

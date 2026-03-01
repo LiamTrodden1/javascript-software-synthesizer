@@ -79,7 +79,9 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Vibrato',
-    'Wobble pitch to simulate vocal singing'
+    'Wobble pitch to simulate vocal singing',
+    `Frequency: Speed of pitch wobble
+     Depth: How far pitch shifts from original note`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

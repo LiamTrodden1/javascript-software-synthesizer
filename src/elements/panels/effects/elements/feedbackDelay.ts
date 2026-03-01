@@ -91,7 +91,9 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Feedback Delay',
-    'Echoes the sound that has been played'
+    'Echoes the sound that has been played',
+    `Delay Time: Interval between the original sound and its echo
+     Feedback: How many times the echo repeats before fading out`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

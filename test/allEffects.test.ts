@@ -48,7 +48,8 @@ describe('autoFilter Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'auto-filter',
       'Auto Filter',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -68,7 +69,8 @@ describe('bitCrusher Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'bit-crusher',
       'Bit Crusher',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -87,7 +89,8 @@ describe('chebyshev Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'chebyshev',
       'Chebyshev',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -106,7 +109,8 @@ describe('chorus Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'chorus',
       'Chorus',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -125,7 +129,8 @@ describe('distortion Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'distortion',
       'Distortion',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -144,7 +149,8 @@ describe('feedbackDelay Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'feedback-delay',
       'Feedback Delay',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -163,7 +169,8 @@ describe('frequencyShifter Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'freq-shifter',
       'Freq. Shifter',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -182,7 +189,8 @@ describe('phaser Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'phaser',
       'Phaser',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -201,7 +209,8 @@ describe('reverb Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'reverb',
       'Reverb',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -220,7 +229,8 @@ describe('tremolo Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'tremolo',
       'Tremolo',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });
@@ -239,7 +249,8 @@ describe('vibrato Component', () => {
     expect(createEffectElements).toHaveBeenCalledWith(
       'vibrato',
       'Vibrato',
-      expectedDescription
+      expectedDescription,
+      expect.any(String)
     );
   });
 });

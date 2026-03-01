@@ -31,18 +31,38 @@ import { createPanelSubtitle } from '../panels.js';
 export const createEffectElements = (
   id: string,
   label = capitalizeString(id),
-  description: string
+  description: string, // The hover summary (subtitle title)
+  infoContent: string  // The deep-dive pop-out content
 ) => {
   const wrapper = document.createElement('div');
   wrapper.classList.add('effect-wrapper');
 
   const subtitle = createPanelSubtitle(label);
-
-  // add description to subtitle
-  subtitle.title = description;
+  subtitle.title = description; // Browser tooltip on hover
 
   const toggleWrapper = document.createElement('div');
   toggleWrapper.classList.add('effect-toggle');
+
+  const infoToggleId = `${id}-info-toggle`;
+  
+  const infoToggle = document.createElement('input');
+  infoToggle.type = 'checkbox';
+  infoToggle.id = infoToggleId;
+  infoToggle.className = 'info-toggle-check';
+  infoToggle.hidden = true;
+
+  const infoBtn = document.createElement('label');
+  infoBtn.setAttribute('for', infoToggleId);
+  infoBtn.className = 'info-btn';
+  infoBtn.innerHTML = 'ⓘ';
+
+  const infoBox = document.createElement('div');
+  infoBox.className = 'info-popout';
+  // Use the new infoContent for the detailed pop-out
+  infoBox.innerHTML = infoContent; 
+  infoBox.title = ""; 
+
+  toggleWrapper.append(infoToggle, infoBtn, infoBox);
 
   const contentWrapper = document.createElement('div');
   contentWrapper.classList.add('effect-content');
@@ -84,7 +104,7 @@ export function collapseAllEffectsOnResize() {
   const content = effects.querySelector('.collapsible-content');
   assertNotNull(content);
 
-  const inputs = [...content.querySelectorAll('input[hidden]')];
+  const inputs = [...content.querySelectorAll('.collapsible-toggle')];
 
   const onWindowResize = () => {
     const w = window.innerWidth;

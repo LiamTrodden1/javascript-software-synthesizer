@@ -91,7 +91,10 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Phaser',
-    'Creates a swirling spacey sound by shifting the phase of the signal'
+    'Creates a swirling spacey sound by shifting the phase of the signal',
+    `Base. Freq: Base point for where the sirling effect begins (Increase for crispier sound, Decrease for deeper bassier sound)
+     Frequency: Speed of swirling effect
+     Octaves: Range of pitch for the swirl`
 );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

@@ -41,6 +41,20 @@ class Component {
     this._body = body;
   }
 
+  // Detailed information about functionality when pressin "I" button
+  set infoContent(value: string) {
+    const id = Math.random().toString(36).substring(2, 9);
+    const infoHtml = `
+      <div class="info-button-container">
+        <input type="checkbox" id="info-${id}" class="info-toggle-check">
+        <label for="info-${id}" class="info-icon">ⓘ</label>
+        <div class="info-popout">${value}</div>
+      </div>
+    `;
+    // Append the info button to the header label
+    this._title.insertAdjacentHTML('beforeend', infoHtml);
+  }
+
   // Description of what the section does
   set description(value: string) {
       this._title.title = value; 

@@ -91,7 +91,11 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Auto Filter',
-    'Sweeping filter to cut of high frequencies giving a "wah" sounding effect'
+    'Sweeping filter to cut of high frequencies giving a "wah" sounding effect',
+    `Frequency: The speed of the wah sound
+     Depth: Intensity to which the auto filter will go between octaves
+     Octaves: How many octaves above the effect will go`
+    
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

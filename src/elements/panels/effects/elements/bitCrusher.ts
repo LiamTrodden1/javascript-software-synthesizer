@@ -70,7 +70,8 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Bit Crusher',
-    'Reduce the audio resolution to add a more gritty distorted lo-fi noise'
+    'Reduce the audio resolution to add a more gritty distorted lo-fi noise',
+    `Bits: Increase for more bits(clearer), Decrease for less bits(crunchy/lo-fi effect)`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

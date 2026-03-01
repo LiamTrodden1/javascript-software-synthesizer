@@ -70,7 +70,8 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Distortion',
-    'Increase audio saturation for a more aggressive tone'
+    'Increase audio saturation for a more aggressive tone',
+    `Amount: Increase the gain od the signal before it starts to clip`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

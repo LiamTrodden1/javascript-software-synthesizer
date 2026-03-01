@@ -45,6 +45,23 @@ export default function createSynthesizer() {
     >]: TCollapsibleComponent;
   };
 
+  // amplitude envelope info prompt
+  sections.envelope.infoContent = `Attack: Time to peak level
+    Decay: Time to drop to sustain
+    Sustain: Level held while key is pressed
+    Release: Time to fade after key is let go
+
+    Attack Curve: Controls the bite of the start
+    Decay Curve: Controls the fall to sustain
+    Release Curve: Controls the tail
+
+    Linear: Default
+    Exponential: Natural percussive pluck feel
+    Sine/Cosine: Smooth, musical S-curv transitions
+    Bounce: Mimics a falling ball
+    Ripple: Adds a vibrating oscillation to the slope
+    Step: Sudden, binary jumps (robotic feel)`;
+
   // Set descriptions
   sections.envelope.description = "Controls the volume from the moment a key is pressed to after its released";
   sections.oscillator.description = "Generates the sound and defines the basic tone and texture of the sound";
@@ -67,6 +84,24 @@ export default function createSynthesizer() {
     ),
   };
 
+  // dials info prompt
+  const labels = settings.querySelectorAll('p'); 
+  const detuneLabel = labels[1];
+    if (detuneLabel) {
+      const mainInfoHtml = `
+        <div class="info-button-container">
+          <input type="checkbox" id="info-synth-main" class="info-toggle-check">
+          <label for="info-synth-main" class="info-icon">ⓘ</label>
+          <div class="info-popout">
+            Volume: Main output level
+            Detune: Pitch offset (thickness)
+            Mod Index: FM modulation depth
+            Harmonicity: Ratio between Carrier and Modulator frequencies
+          </div>
+        </div>`;
+      detuneLabel.insertAdjacentHTML('beforeend', mainInfoHtml);
+    }
+
   // create components / interfaces
   const envelope = EnvelopeComponent(
     sections.envelope.body,
@@ -78,6 +113,19 @@ export default function createSynthesizer() {
     ids.oscillator,
     options.oscillator
   );
+
+  // Oscillator info prompt
+  oscillator.typeInfo = `Type: Select the oscillator's waveform shape
+    Sine: smooth 
+    Square: hollow/woody.
+    Sawtooth: bright/buzzy
+    Triangle: Soft and dark
+    Pulse: Sharp
+    
+    Partial Count: The number of active harmonics 
+    Higher counts result in a richer, brighter sound
+    
+    Partials: Adjust the volume of individual overtones`;
 
   // store interfaces in a class
   // to make them accessible to the audio nodes

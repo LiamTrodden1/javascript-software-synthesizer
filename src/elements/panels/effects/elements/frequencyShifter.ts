@@ -77,7 +77,8 @@ function render() {
   const [wrapper, toggleWrapper, contentWrapper] = createEffectElements(
     id,
     'Freq. Shifter',
-    'Adjust frequencies to create a metallic inharmonic sound'
+    'Adjust frequencies to create a metallic inharmonic sound',
+    `Frequency: Increase to shift frequencies up, Decrease to shift frequencies down`
   );
 
   interfaces.toggle = new Nexus.Toggle(toggleWrapper, defaultToggleOptions);

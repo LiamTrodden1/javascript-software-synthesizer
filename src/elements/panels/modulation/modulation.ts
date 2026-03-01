@@ -33,12 +33,45 @@ export default function createModulator() {
     options.modulator
   );
 
+  // Waveform controls info
+  modulator.typeInfo = `Type: Select the oscillator's waveform shape
+    Sine: smooth 
+    Square: hollow/woody.
+    Sawtooth: bright/buzzy
+    Triangle: Soft and dark
+    Pulse: Sharp`;
+  
+  modulator.countInfo = `Partial Count: The number of active harmonics 
+    Higher counts result in a richer, brighter sound`;
+
+  modulator.partialsInfo = `Partials: Adjust the volume of individual overtones`;
+  
+
+
   const envelopeSection = CollapsibleComponent(
     ids.modulationEnvelope,
     createPanelSubtitle('Modulation Envelope')
   );
-  // Modulation Envelope Description
-  envelopeSection.description = "Controls how an effect behaves from pressing the key to letting go of the key";
+
+  // Modulation Envelope info
+  envelopeSection.infoContent = `Attack: Time to peak level
+    Decay: Time to drop to sustain
+    Sustain: Level held while key is pressed
+    Release: Time to fade after key is let go
+
+    Attack Curve: Controls the bite of the start
+    Decay Curve: Controls the fall to sustain
+    Release Curve: Controls the tail
+
+    Linear: Default
+    Exponential: Natural percussive pluck feel
+    Sine/Cosine: Smooth, musical S-curv transitions
+    Bounce: Mimics a falling ball
+    Ripple: Adds a vibrating oscillation to the slope
+    Step: Sudden, binary jumps (robotic feel)`;
+
+  envelopeSection.description = "Controls how modulation evolves over time";
+  
   fragment.append(envelopeSection.fragment);
 
   const envelope = EnvelopeComponent(
