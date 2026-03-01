@@ -36,3 +36,13 @@ export const ids = <SequencerUIKeys>{
   play: 'seq-play',
   stop: 'seq-stop',
 };
+
+// descriptions for playing sequencer
+export const descriptions = {
+  rate: "Playback Rate: Multiplier for sequence speed (1 = normal, 2 = double, 0.5 = half speed).",
+  subdivision: "Subdivision: Rhythmic value for each step (e.g. 8th notes, 16th notes..).",
+  sequence: "Notes: Enter your list of notes (e.g. E4 G5 C3 A2) using square brackets puts the note sin the smae subdivision (e.g. C5 E5 [G5 F5])",
+  set: "Add new sequence",
+  play: "Start sequence",
+  stop: "Stop sequence",
+}

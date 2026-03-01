@@ -31,3 +31,29 @@
     transform: perspective(600px) translateZ(0px);
   }
 }
+
+// sequencer descriptions
+.sequencer-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-description {
+  display: none;
+  position: absolute;
+  bottom: 125%; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  width: 180px;
+  font-size: 0.8rem;
+  z-index: 10;
+  pointer-events: none; 
+}
+
+.sequencer-input-wrapper:hover .hover-description {
+  display: block;
+}
