@@ -56,6 +56,21 @@ type FeedbackDelayUI = EffectUI<FeedbackDelayUIOptions>;
 
 const id = 'feedback-delay';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<FeedbackDelayOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<FeedbackDelayOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <FeedbackDelayUIKeys>{
   delayTime: `${id}-time`,
   feedback: `${id}-feedback`,
@@ -71,13 +86,13 @@ const options = <FeedbackDelayUIOptions>{
     min: 0,
     max: 1,
     step: 0.01,
-    value: 0.25,
+    value: savedSettings.delayTime ?? 0.25,
   },
   feedback: {
     min: 0,
     max: 1,
     step: 0.01,
-    value: 0.5,
+    value: savedSettings.feedback ?? 0.5,
   },
 };
 
@@ -147,6 +162,7 @@ async function create() {
 
   interfaces.delayTime.on('change', (value) => {
     // @todo
+    saveSettings({delayTime:value});
     effect.node.set(<RecursivePartial<EffectOptions>>{
       delayTime: value,
     });
@@ -163,6 +179,7 @@ async function create() {
     else {
       warning = false;
     }
+    saveSettings({feedback: value});
     effect.node.set(<RecursivePartial<EffectOptions>>{
       feedback: value,
     });

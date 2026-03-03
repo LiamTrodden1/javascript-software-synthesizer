@@ -44,6 +44,21 @@ type VibratoUI = EffectUI<VibratoUIOptions>;
 
 const id = 'vibrato';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<VibratoOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<VibratoOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <VibratoUIKeys>{
   frequency: `${id}-frequency`,
   depth: `${id}-depth`,
@@ -59,13 +74,13 @@ const options = <VibratoUIOptions>{
     min: 0,
     max: 2000,
     step: 1,
-    value: 9,
+    value: savedSettings.frequency ?? 9,
   },
   depth: {
     min: 0,
     max: 1,
     step: 0.01,
-    value: 0.9,
+    value: savedSettings.depth ?? 0.9,
   },
 };
 
@@ -133,6 +148,7 @@ async function create() {
 
   Object.entries(<VibratoUI>interfaces).forEach(([key, item]) => {
     item.on('change', (value) => {
+      saveSettings({ [key]: value });
       effect.node.set({
         [key]: value,
       });

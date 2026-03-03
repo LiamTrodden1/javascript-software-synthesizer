@@ -47,6 +47,21 @@ type PhaserUI = EffectUI<PhaserUIOptions>;
 
 const id = 'phaser';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<PhaserOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<PhaserOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <PhaserUIKeys>{
   baseFrequency: `${id}-base-frequency`,
   frequency: `${id}-frequency`,
@@ -64,19 +79,19 @@ const options = <PhaserUIOptions>{
     min: 0,
     max: 2000,
     step: 1,
-    value: 1000,
+    value: savedSettings.baseFrequency ?? 1000,
   },
   frequency: {
     min: 0,
     max: 70,
     step: 0.01,
-    value: 15,
+    value: savedSettings.frequency ?? 15,
   },
   octaves: {
     min: 0,
     max: 20,
     step: 1,
-    value: 5,
+    value: savedSettings.octaves ?? 5,
   },
 };
 
@@ -156,6 +171,7 @@ async function create() {
 
   Object.entries(<PhaserUI>interfaces).forEach(([key, item]) => {
     item.on('change', (value) => {
+      saveSettings({ [key]: value });
       effect.node.set({
         [key]: value,
       });

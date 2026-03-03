@@ -44,6 +44,22 @@ type BitcrusherUI = EffectUI<BitCrusherUIOptions>;
 
 const id = 'bit-crusher';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<BitCrusherOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<BitCrusherOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
+
 const ids = <BitcrusherUIKeys>{
   bits: `${id}-bits`,
 };
@@ -57,7 +73,7 @@ const options = <BitCrusherUIOptions>{
     min: 6,
     max: 10,
     step: 0.01,
-    value: 7,
+    value: savedSettings.bits ?? 7,
   },
 };
 
@@ -111,6 +127,7 @@ async function create() {
   });
 
   interfaces.bits.on('change', (value) => {
+    saveSettings({bits: value});
     effect.node.set(<BitCrusherOptions>{
       bits: value,
     });

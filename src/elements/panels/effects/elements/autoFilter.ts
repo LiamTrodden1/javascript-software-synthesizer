@@ -47,6 +47,21 @@ type AutoFilterUI = EffectUI<AutoFilterUIOptions>;
 
 const id = 'auto-filter';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<AutoFilterOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<AutoFilterOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <AutoFilterUIKeys>{
   depth: `${id}-depth`,
   frequency: `${id}-frequency`,
@@ -64,19 +79,19 @@ const options = <AutoFilterUIOptions>{
     min: 0,
     max: 1,
     step: 0,
-    value: 1,
+    value: savedSettings.depth ?? 1,
   },
   frequency: {
     min: 0,
     max: 1000,
     step: 0,
-    value: 10,
+    value: savedSettings.frequency ?? 10,
   },
   octaves: {
     min: -10,
     max: 10,
     step: 0,
-    value: 2.6,
+    value: savedSettings.octaves ?? 2.6,
   },
 };
 
@@ -158,6 +173,7 @@ async function create() {
 
   Object.entries(<AutoFilterUI>interfaces).forEach(([key, item]) => {
     item.on('change', (value) => {
+      saveSettings({ [key]: value });
       effect.node.set({
         [key]: value,
       });

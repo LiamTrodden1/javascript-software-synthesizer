@@ -47,6 +47,21 @@ type ChorusUI = EffectUI<ChorusUIOptions>;
 
 const id = 'chorus';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<ChorusOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<ChorusOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <ChorusUIKeys>{
   frequency: `${id}-frequency`,
   delayTime: `${id}-delay-time`,
@@ -64,19 +79,19 @@ const options = <ChorusUIOptions>{
     min: 0,
     max: 50,
     step: 0,
-    value: 4,
+    value: savedSettings.frequency ?? 4,
   },
   delayTime: {
     min: 0,
     max: 200,
     step: 0,
-    value: 2.5,
+    value: savedSettings.delayTime ?? 2.5,
   },
   depth: {
     min: 0,
     max: 1,
     step: 0,
-    value: 0.5,
+    value: savedSettings.depth ?? 0.5,
   },
 };
 
@@ -158,6 +173,7 @@ async function create() {
 
   Object.entries(<ChorusUI>interfaces).forEach(([key, item]) => {
     item.on('change', (value) => {
+      saveSettings({ [key]: value });
       effect.node.set({
         [key]: value,
       });

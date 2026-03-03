@@ -44,6 +44,21 @@ type DistortionUI = EffectUI<DistortionUIOptions>;
 
 const id = 'distortion';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<DistortionOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<DistortionOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <DistortionUIKeys>{
   distortion: `${id}-distortion`,
 };
@@ -57,7 +72,7 @@ const options = <DistortionUIOptions>{
     min: 0,
     max: 1,
     step: 0.01,
-    value: 0.9,
+    value: savedSettings.distortion ?? 0.9,
   },
 };
 
@@ -114,6 +129,7 @@ async function create() {
   });
 
   interfaces.distortion.on('change', (value) => {
+    saveSettings({distortion: value});
     effect.node.set(<DistortionOptions>{
       distortion: value,
     });

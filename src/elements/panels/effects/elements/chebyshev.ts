@@ -44,6 +44,21 @@ type ChebyshevUI = EffectUI<ChebyshevUIOptions>;
 
 const id = 'chebyshev';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<ChebyshevOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<ChebyshevOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <ChebyshevUIKeys>{
   order: `${id}-order`,
 };
@@ -57,7 +72,7 @@ const options = <ChebyshevUIOptions>{
     min: 1,
     max: 100,
     step: 1,
-    value: 51,
+    value: savedSettings.order ?? 51,
   },
 };
 
@@ -113,6 +128,7 @@ async function create() {
   });
 
   interfaces.order.on('change', (value) => {
+    saveSettings({order: value});
     effect.node.set(<ChebyshevOptions>{
       order: value,
     });

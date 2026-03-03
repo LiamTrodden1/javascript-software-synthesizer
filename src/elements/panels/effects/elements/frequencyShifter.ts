@@ -51,6 +51,21 @@ type FrequencyShifterUI = EffectUI<FrequencyShifterUIOptions>;
 
 const id = 'freq-shifter';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<FrequencyShifterOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<FrequencyShifterOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <FrequencyShifterUIKeys>{
   frequency: `${id}-frequency`,
 };
@@ -64,7 +79,7 @@ const options = <FrequencyShifterUIOptions>{
     min: -600,
     max: 600,
     step: 1,
-    value: 42,
+    value: savedSettings.frequency ?? 42,
   },
 };
 
@@ -119,6 +134,7 @@ async function create() {
 
   interfaces.frequency.on('change', (value) => {
     // @todo
+    saveSettings({frequency: value});
     effect.node.set(<RecursivePartial<EffectOptions>>{
       frequency: value,
     });

@@ -44,6 +44,21 @@ type TremoloUI = EffectUI<TermoloUIOptions>;
 
 const id = 'tremolo';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<TremoloOptions> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<TremoloOptions>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
 const ids = <TremoloUIKeys>{
   frequency: `${id}-frequency`,
   depth: `${id}-depth`,
@@ -59,13 +74,13 @@ const options = <TermoloUIOptions>{
     min: 0,
     max: 50,
     step: 1,
-    value: 9,
+    value: savedSettings.frequency ?? 9,
   },
   depth: {
     min: 0,
     max: 1,
     step: 0.01,
-    value: 0.75,
+    value: savedSettings.depth ?? 0.75,
   },
 };
 
@@ -134,6 +149,7 @@ async function create() {
 
   Object.entries(<TremoloUI>interfaces).forEach(([key, item]) => {
     item.on('change', (value) => {
+      saveSettings({ [key]: value });
       effect.node.set({
         [key]: value,
       });

@@ -33,6 +33,7 @@ import {
   type BaseEffectUI,
   type EffectUI,
 } from '../effects.utils.js';
+import { Reverb } from 'tone';
 
 // @todo
 type ReverbUIOptions = {
@@ -47,6 +48,22 @@ type ReverbUI = EffectUI<ReverbUIOptions>;
 
 const id = 'reverb';
 
+// define storage key
+const STORAGE_KEY = `SaveConfig${id}`;
+// get saved settings
+function getSavedSettings(): Partial<Reverb> {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+// save settings
+function saveSettings(settings: Partial<Reverb>) {
+  const current = getSavedSettings();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...settings }));
+}
+// get the saved settings
+const savedSettings = getSavedSettings();
+
+
 const ids = <ReverbUIKeys>{
   decay: `${id}-decay`,
 };
@@ -60,7 +77,7 @@ const options = <ReverbUIOptions>{
     min: 0,
     max: 30,
     step: 0.01,
-    value: 1,
+    value: savedSettings.decay ?? 1,
   },
 };
 
@@ -115,6 +132,7 @@ async function create() {
   });
 
   interfaces.decay.on('change', (value) => {
+    saveSettings({decay: value});
     effect.node.set(<RecursivePartial<EffectOptions>>{
       decay: value,
     });
