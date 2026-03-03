@@ -121,6 +121,8 @@ async function create() {
   assertNotNull(interfaces.delayTime);
   assertNotNull(interfaces.feedback);
 
+  let warning = false;
+
   const effect = new EffectController(
     new FeedbackDelay({
       delayTime: interfaces.delayTime.value,
@@ -152,6 +154,15 @@ async function create() {
 
   interfaces.feedback.on('change', (value) => {
     // @todo
+    if (value == 1){
+      if (!warning){
+        alert("Increasing Feedback to 1 creates an infinite loop meaning the the echo will never stop")
+        warning = true;
+      }
+    }
+    else {
+      warning = false;
+    }
     effect.node.set(<RecursivePartial<EffectOptions>>{
       feedback: value,
     });
