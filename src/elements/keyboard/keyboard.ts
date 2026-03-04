@@ -32,6 +32,18 @@ let keyboard: NexusPiano;
 
 export const getInterface = () => keyboard;
 
+// Turn off all active notes when shifting octave
+const flushNotes = () => {
+  pressedKeys.clear();
+  if (keyboard && keyboard.keys) {
+    keyboard.keys.forEach((key, index) => {
+      if (key._state.state) {
+        keyboard.toggleIndex(index, false);
+      }
+    });
+  }
+};
+
 export default function createKeyboard(section: HTMLElement) {
   keyboard = new Nexus.Piano(section, options);
 
@@ -59,18 +71,13 @@ export default function createKeyboard(section: HTMLElement) {
 // default C3
 // Range: C1 to C8
 let base = 24;
+const pressedKeys = new Set<string>();
 
 // consider keyboard offset
 // console.log(Midi(base + options.lowNote).toNote());
 
 export const handlers = <KeyboardHandlers>{
   keydown: (event: KeyboardEvent) => {
-    // @todo
-    // if (event.target === seqInput) {
-    // 	return;
-    // }
-
-    // press key
     const keyIndex = keyMapper(event.code, base);
 
     if (keyIndex === null) return;
@@ -78,23 +85,25 @@ export const handlers = <KeyboardHandlers>{
     const isPressed = keyboard.keys[keyIndex]._state.state;
 
     if (!isPressed) {
+      pressedKeys.add(event.code);
       keyboard.toggleIndex(keyIndex, true);
     }
   },
   keyup: (event: KeyboardEvent) => {
-    // one octave down
-    if (event.code === 'KeyZ' && base >= constants.minBase) {
-      base -= constants.octave;
+    // Handle octave shifts: Flush notes first so none get stuck in the old octave
+    if (event.code === 'KeyZ' || event.code === 'KeyX') {
+      flushNotes();
+
+      if (event.code === 'KeyZ' && base >= constants.minBase) {
+        base -= constants.octave;
+      } else if (event.code === 'KeyX' && base < constants.maxBase) {
+        base += constants.octave;
+      }
       return;
     }
 
-    // one octave up
-    if (event.code === 'KeyX' && base < constants.maxBase) {
-      base += constants.octave;
-      return;
-    }
-
-    // release key
+    // Normal key release logic
+    pressedKeys.delete(event.code);
     const keyIndex = keyMapper(event.code, base);
 
     if (keyIndex === null) return;
